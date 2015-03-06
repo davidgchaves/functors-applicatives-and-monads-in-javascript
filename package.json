@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "David G. Chaves <davidgchaves@gmail.com>",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "chai": "^2.1.1",
+    "mocha": "^2.1.0"
+  }
 }
