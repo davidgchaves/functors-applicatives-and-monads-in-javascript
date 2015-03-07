@@ -26,3 +26,17 @@ describe("Ramda's split", function () {
 
 var words = R.split(' ');
 
+
+/*
+ * multiply :: Number -> Number -> Number
+ */
+describe("Ramda's multiply", function () {
+
+  context('definition', function () {
+    it('performs a curried multiplication of two numbers', function () {
+      expect(R.multiply(5, 4)).to.be.equal(20);
+    });
+  });
+
+});
+
