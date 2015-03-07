@@ -63,3 +63,19 @@ describe("Ramda's map", function () {
 
 var tripleList = R.map(R.multiply(3));
 
+
+/*
+ * reduce :: ((a -> b) -> a) -> a -> [b] -> a
+ *           (foldl in Haskell)
+ */
+describe("Ramda's reduce (foldl)", function () {
+
+  context('definition', function () {
+    it('reduces the list (and the initial element) by applying the supplied function', function () {
+      var add = function(a,b) { return a+b; };
+      expect(R.reduce(add, 20, [1,2,3,4])).to.be.equal(30);
+    });
+  });
+
+});
+
