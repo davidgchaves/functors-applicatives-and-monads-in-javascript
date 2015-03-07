@@ -16,5 +16,13 @@ describe("Ramda's split", function () {
     });
   });
 
+  context('words: a curried split example', function () {
+    it('returns a list of words in a string', function () {
+      expect(words('one two three')).to.be.deep.equal(['one', 'two','three']);
+    });
+  });
+
 });
+
+var words = R.split(' ');
 
