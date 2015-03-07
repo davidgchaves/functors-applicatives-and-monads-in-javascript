@@ -40,3 +40,18 @@ describe("Ramda's multiply", function () {
 
 });
 
+
+/*
+ * map :: (a -> b) -> [a] -> [b]
+ */
+describe("Ramda's map", function () {
+
+  context('definition', function () {
+    it('produces a new list with the supplied function applied to every element of the supplied list', function () {
+      var triple = function(x) { return x * 3; };
+      expect(R.map(triple, [1,2,3,4])).to.be.deep.equal([3,6,9,12]);
+    });
+  });
+
+});
+
