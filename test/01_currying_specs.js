@@ -77,5 +77,15 @@ describe("Ramda's reduce (foldl)", function () {
     });
   });
 
+  context('max: a curried reduce example', function () {
+    it('returns the largest number on a list', function () {
+      expect(max([1,-3483,9,7,2])).to.be.equal(9);
+      expect(max([-21,-3483,-2,-1])).to.be.equal(-1);
+    });
+  });
+
 });
+
+var greater = function (a,b) { return a > b ? a : b; };
+var max = R.reduce(greater, -Infinity);
 
