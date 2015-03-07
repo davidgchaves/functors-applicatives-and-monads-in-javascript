@@ -53,5 +53,13 @@ describe("Ramda's map", function () {
     });
   });
 
+  context('tripleList: a curried map and multiply example', function () {
+    it('triples every number in a list', function () {
+      expect(tripleList([1,2,3,4])).to.be.deep.equal([3,6,9,12]);
+    });
+  });
+
 });
+
+var tripleList = R.map(R.multiply(3));
 
