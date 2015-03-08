@@ -103,5 +103,17 @@ describe("Ramda's curry", function () {
     });
   });
 
+  context('myMap: a map function defined in terms of curry and reduce', function () {
+    it('works like the regular map', function () {
+      expect(R.map(R.multiply(3), [1,2,3,4])).to.be.deep.equal([3,6,9,12]);
+      expect(myMap(R.multiply(3), [1,2,3,4])).to.be.deep.equal([3,6,9,12]);
+    });
+  });
+
+});
+
+var myMap = R.curry(function(f,xs) {
+  var concatProcessedArgs = function(acc,x) { return acc.concat([f(x)]); };
+  return R.reduce(concatProcessedArgs,[],xs);
 });
 
