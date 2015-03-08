@@ -89,3 +89,19 @@ describe("Ramda's reduce (foldl)", function () {
 var greater = function (a,b) { return a > b ? a : b; };
 var max = R.reduce(greater, -Infinity);
 
+
+/*
+ * curry :: (* -> a) -> (* -> a)
+ */
+describe("Ramda's curry", function () {
+
+  context('definition', function () {
+    it('curries the given function', function () {
+      var multiplyThreeNumbers        = function(x,y,z) { return x*y*z; };
+      var curriedMultiplyThreeNumbers = R.curry(multiplyThreeNumbers);
+      expect(curriedMultiplyThreeNumbers(1)(2)(3)).to.be.equal(6);
+    });
+  });
+
+});
+
