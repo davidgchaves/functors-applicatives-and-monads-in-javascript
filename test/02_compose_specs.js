@@ -168,6 +168,15 @@ describe("Playing with 'articles'", function () {
     });
   });
 
+  describe('isAuthor: a neither composed nor piped function example', function () {
+    it("checks if a given person is an author in the 'articles' data structure", function () {
+      expect(isAuthor1('Wrong Person', articles)).to.be.false;
+      expect(isAuthor1('Debbie Downer', articles)).to.be.true;
+      expect(isAuthor2('Wrong Person', articles)).to.be.false;
+      expect(isAuthor2('Debbie Downer', articles)).to.be.true;
+    });
+  });
+
 });
 
 var firstTitleComposed = R.compose(R.prop('title'), R.head);
@@ -178,4 +187,6 @@ var namesPiped         = R.map(R.pipe(R.prop('author'), R.prop('name')));
 
 var isAuthorComposed  = function(name, artikles) { return R.compose(R.contains(name), namesComposed)(artikles); };
 var isAuthorPiped     = function(name, artikles) { return R.pipe(namesComposed, R.contains(name))(artikles); };
+var isAuthor1         = function(name, artikles) { return R.contains(name)(namesComposed(artikles)); };
+var isAuthor2         = function(name, artikles) { return R.contains(name, namesComposed(artikles)); };
 
