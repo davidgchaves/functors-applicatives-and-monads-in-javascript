@@ -66,3 +66,18 @@ describe("Ramda's head", function () {
 
 });
 
+
+/*
+ * prop :: k -> {k: v} -> v
+ */
+describe("Ramda's prop", function () {
+
+  context('definition', function () {
+    it('returns the value of the given property', function () {
+      expect(R.prop('key', {key: 'value'})).to.be.equal('value');
+      expect(R.prop('key')({key: 'value'})).to.be.equal('value');
+    });
+  });
+
+});
+
