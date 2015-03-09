@@ -131,10 +131,17 @@ describe("Playing with 'articles'", function () {
     });
   });
 
+  describe('namesPiped: a piped map function example', function () {
+    it("returns the author names in the 'articles' data structure", function () {
+      expect(namesPiped(articles)).to.be.deep.equal(['Debbie Downer', 'Caspar Milquetoast']);
+    });
+  });
+
 });
 
 var firstTitleComposed = R.compose(R.prop('title'), R.head);
 var firstTitlePiped    = R.pipe(R.head, R.prop('title'));
 
 var namesComposed      = R.map(R.compose(R.prop('name'), R.prop('author')));
+var namesPiped         = R.map(R.pipe(R.prop('author'), R.prop('name')));
 
