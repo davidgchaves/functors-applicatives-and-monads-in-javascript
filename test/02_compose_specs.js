@@ -22,7 +22,16 @@ describe("Ramda's compose", function () {
     });
   });
 
+  context('lengthsComposed: a composed function example in terms of map and split', function () {
+    it('produces the lengths of the words in a string', function () {
+      expect(lengthsComposed('Once upon a time there was')).to.be.deep.equal([4,4,1,4,5,3]);
+    });
+  });
+
 });
+
+var length = function(xs) { return xs.length; };
+var lengthsComposed = R.compose(R.map(length), R.split(' '));
 
 
 /*
