@@ -154,6 +154,13 @@ describe("Playing with 'articles'", function () {
     });
   });
 
+  describe('isAuthorComposed: a composed function example', function () {
+    it("checks if a given person is an author in the 'articles' data structure", function () {
+      expect(isAuthorComposed('Wrong Person', articles)).to.be.false;
+      expect(isAuthorComposed('Debbie Downer', articles)).to.be.true;
+    });
+  });
+
 });
 
 var firstTitleComposed = R.compose(R.prop('title'), R.head);
@@ -161,4 +168,6 @@ var firstTitlePiped    = R.pipe(R.head, R.prop('title'));
 
 var namesComposed      = R.map(R.compose(R.prop('name'), R.prop('author')));
 var namesPiped         = R.map(R.pipe(R.prop('author'), R.prop('name')));
+
+var isAuthorComposed  = function(name, artikles) { return R.compose(R.contains(name), namesComposed)(artikles); };
 
