@@ -161,6 +161,13 @@ describe("Playing with 'articles'", function () {
     });
   });
 
+  describe('isAuthorPiped: a piped function example', function () {
+    it("checks if a given person is an author in the 'articles' data structure", function () {
+      expect(isAuthorPiped('Wrong Person', articles)).to.be.false;
+      expect(isAuthorPiped('Debbie Downer', articles)).to.be.true;
+    });
+  });
+
 });
 
 var firstTitleComposed = R.compose(R.prop('title'), R.head);
@@ -170,4 +177,5 @@ var namesComposed      = R.map(R.compose(R.prop('name'), R.prop('author')));
 var namesPiped         = R.map(R.pipe(R.prop('author'), R.prop('name')));
 
 var isAuthorComposed  = function(name, artikles) { return R.compose(R.contains(name), namesComposed)(artikles); };
+var isAuthorPiped     = function(name, artikles) { return R.pipe(namesComposed, R.contains(name))(artikles); };
 
