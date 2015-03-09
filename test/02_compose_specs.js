@@ -190,3 +190,30 @@ var isAuthorPiped     = function(name, artikles) { return R.pipe(namesComposed, 
 var isAuthor1         = function(name, artikles) { return R.contains(name)(namesComposed(artikles)); };
 var isAuthor2         = function(name, artikles) { return R.contains(name, namesComposed(artikles)); };
 
+
+describe('Using a custom fork', function () {
+
+  describe('avg: a forked (curried) example function', function () {
+    it('produces the average value in a list', function () {
+      expect(avg([1,2,3,4,5])).to.be.equal(3);
+    });
+  });
+
+});
+
+var fork = R.curry(function(lastly,f,g,xs) { return lastly(f(xs), g(xs)); } );
+
+/*
+ * REMEMBER: var length = function(xs) { return xs.length; };
+ *
+ * lastly -> R.divide :: Number -> Number -> Number
+ * f      -> R.sum    :: [Number] -> Number
+ * g      -> length   :: [a] -> Number
+ *
+ * How does this work? HINT: CURRY!!!!
+ *  - length receives the list [1,2,3,4,5] and produces its length (5)
+ *  - sum receives the list [1,2,3,4,5] and produces its sum (15)
+ *  - divide receives both results (15) and (5) and produces its division (3)
+ */
+var avg = fork(R.divide, R.sum, length);
+
