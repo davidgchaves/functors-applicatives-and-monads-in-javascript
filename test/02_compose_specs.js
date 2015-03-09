@@ -50,8 +50,15 @@ describe("Ramda's pipe", function () {
     });
   });
 
+  context('lengthsPiped: a piped function example in terms of map and split', function () {
+    it('produces the lengths of the words in a string', function () {
+      expect(lengthsPiped('Once upon a time there was')).to.be.deep.equal([4,4,1,4,5,3]);
+    });
+  });
+
 });
 
+var lengthsPiped = R.pipe(R.split(' '), R.map(length));
 
 /*
  * head :: [a] -> a
