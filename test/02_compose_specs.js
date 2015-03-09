@@ -119,7 +119,14 @@ describe("Playing with 'articles'", function () {
     });
   });
 
+  describe('firstTitlePiped: a piped function example', function () {
+    it("returns the first title of the 'articles' data structure", function () {
+      expect(firstTitlePiped(articles)).to.be.equal('Everything Sucks');
+    });
+  });
+
 });
 
 var firstTitleComposed = R.compose(R.prop('title'), R.head);
+var firstTitlePiped    = R.pipe(R.head, R.prop('title'));
 
