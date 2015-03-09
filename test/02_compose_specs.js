@@ -90,6 +90,23 @@ describe("Ramda's prop", function () {
 
 
 /*
+ * contains :: a -> [a] -> Boolean
+ */
+describe("Ramda's contains", function () {
+
+  context('definition', function () {
+    it('returns true if the specified item is in the list', function () {
+      expect(R.contains(6)([3,6,9])).to.be.true;
+    });
+    it('returns false otherwise', function () {
+      expect(R.contains(0)([3,6,9])).to.be.false
+    });
+  });
+
+});
+
+
+/*
  * Playing with the articles data structure
  */
 var articles = [
