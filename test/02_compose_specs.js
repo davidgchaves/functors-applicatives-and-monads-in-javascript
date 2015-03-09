@@ -24,3 +24,22 @@ describe("Ramda's compose", function () {
 
 });
 
+
+/*
+ * pipe :: ((a -> b) -> (b -> c) -> ... -> (x -> y) -> (y -> z)) -> (a -> z)
+ */
+describe("Ramda's pipe", function () {
+
+  context('definition', function () {
+    it('pipes the given functions from left to right', function () {
+      var triple = function(x) { return 3*x; };
+      var minus1 = function(x) { return x-1; };
+      var square = function(x) { return x*x; };
+
+      expect(R.pipe(triple, minus1, square)(10)).to.be.equal(841);
+      expect(R.pipe(square, minus1, triple)(10)).to.be.equal(297);
+    });
+  });
+
+});
+
