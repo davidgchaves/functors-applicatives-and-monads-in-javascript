@@ -111,3 +111,15 @@ var articles = [
   }
 ];
 
+describe("Playing with 'articles'", function () {
+
+  describe('firstTitleComposed: a composed function example', function () {
+    it("returns the first title of the 'articles' data structure", function () {
+      expect(firstTitleComposed(articles)).to.be.equal('Everything Sucks');
+    });
+  });
+
+});
+
+var firstTitleComposed = R.compose(R.prop('title'), R.head);
+
