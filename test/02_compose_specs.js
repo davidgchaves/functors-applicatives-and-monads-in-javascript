@@ -52,3 +52,17 @@ describe("Ramda's pipe", function () {
 
 });
 
+
+/*
+ * head :: [a] -> a
+ */
+describe("Ramda's head", function () {
+
+  context('definition', function () {
+    it('returns the head (first element) of a list', function () {
+      expect(R.head(['one','two','three'])).to.be.equal('one');
+    });
+  });
+
+});
+
