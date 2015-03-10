@@ -125,7 +125,18 @@ describe('Maybe Functor', function () {
     });
   });
 
+  describe('maybeParseInt', function () {
+    it('returns the parsed int wrapped in a Maybe Functor', function () {
+      expect(maybeParseInt("6")).to.be.deep.equal(Maybe(6));
+    });
+
+    it('returns the bad input wrapped in a Maybe Functor when the given string is not parseable as an int', function () {
+      expect(maybeParseInt("NaN")).to.be.deep.equal(Maybe(NaN));
+    });
+  });
+
 });
 
 var maybeNameStartsWith = R.compose(fmap(R.head), Maybe, R.prop('name'));
+var maybeParseInt       = R.compose(fmap(parseInt), Maybe);
 
