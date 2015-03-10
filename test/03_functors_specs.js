@@ -92,7 +92,7 @@ describe('Identity Functor', function () {
 
 });
 
-var add1 = fmap(R.add(1));
+var add1    = fmap(R.add(1));
 var mapHead = fmap(R.head);
 
 
