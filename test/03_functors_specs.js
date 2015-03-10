@@ -75,3 +75,15 @@ _Identity.prototype.fmap = function(f) {
   return new _Identity(f(this.val));
 };
 
+describe('Identity Functor', function () {
+
+  describe('add1', function () {
+    it('increments a value inside the Functor', function () {
+      expect(add1(Identity(6))).to.be.deep.equal(Identity(7));
+    });
+  });
+
+});
+
+var add1 = fmap(R.add(1));
+
