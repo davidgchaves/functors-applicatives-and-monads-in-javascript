@@ -111,3 +111,21 @@ _Maybe.prototype.fmap = function(f) {
   return this.val ? Maybe(f(this.val)) : Maybe(null);
 };
 
+describe('Maybe Functor', function () {
+
+  describe('maybeNameStartsWith', function () {
+    it("gets the user's name initial wrapped in a Maybe Functor", function () {
+      var user = { id: 4, name: 'David', email: 'david@example.com' }
+      expect(maybeNameStartsWith(user)).to.be.deep.equal(Maybe('D'));
+    });
+
+    it("returns a Maybe(null) value when the user's name is not present", function () {
+      var user = { id: 5, name: '', email: 'peter@example.com' }
+      expect(maybeNameStartsWith(user)).to.be.deep.equal(Maybe(null));
+    });
+  });
+
+});
+
+var maybeNameStartsWith = R.compose(fmap(R.head), Maybe, R.prop('name'));
+
