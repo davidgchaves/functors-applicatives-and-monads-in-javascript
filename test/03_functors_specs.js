@@ -83,7 +83,16 @@ describe('Identity Functor', function () {
     });
   });
 
+  describe('mapHead', function () {
+    it('gets the head (first element) of an Array wrapped inside the Functor', function () {
+      var xs = Identity(['do', 're', 'mi', 'fa', 'sol', 'la', 'si']);
+      expect(mapHead(xs)).to.be.deep.equal(Identity('do'));
+    });
+  });
+
 });
 
 var add1 = fmap(R.add(1));
+var mapHead = fmap(R.head);
+
 
