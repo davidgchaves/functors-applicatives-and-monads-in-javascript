@@ -20,6 +20,21 @@
  *    ASSOCIATIVITY:  (f . g) . h = f . (g . h)
  */
 
+/*
+ * FUNCTORS:
+ *
+ *  Any object or data structure you can map over
+ *
+ *  MAP IS THE KEY:
+ *    You CAN'T call a function over a Functor
+ *    You HAVE TO MAP the function over the Functor (AKA LIFTING)
+ *      we lift our function into the Functor
+ *
+ *  MAP:
+ *    (1) Takes the value out of its context to apply the function over it (lifting the function)
+ *    (2) Boxes the resulting value back up into it's original context
+ */
+
 'use strict';
 
 var R = require('ramda');
