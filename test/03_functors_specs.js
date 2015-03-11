@@ -163,6 +163,16 @@ describe('Either Functor', function () {
     });
   });
 
+  describe('eitherUserNameIsLargerThan3CharsValidator', function () {
+    it("returns the given value in an Either.Right when it's length is greater than 3", function () {
+      expect(eitherUserNameIsLargerThan3CharsValidator('fprules64')).to.be.deep.equal(E.Right('fprules64'));
+    });
+
+    it('returns an error message in an Either.Left to non-active users', function () {
+      expect(eitherUserNameIsLargerThan3CharsValidator('123')).to.be.deep.equal(E.Left('Need length greater than 3'));
+    });
+  });
+
 });
 
 var eitherCheckIfUserIsActive = function(user) {
@@ -170,4 +180,8 @@ var eitherCheckIfUserIsActive = function(user) {
 };
 var welcomeUser = R.compose(R.add('Welcome '), R.prop('name'));
 var eitherGrantAccess = R.compose(fmap(welcomeUser), eitherCheckIfUserIsActive);
+
+var eitherUserNameIsLargerThan3CharsValidator = function(x) {
+  return x.length > 3 ? E.Right(x) : E.Left('Need length greater than 3');
+};
 
