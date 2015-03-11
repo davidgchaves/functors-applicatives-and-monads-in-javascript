@@ -149,3 +149,25 @@ var maybeParseInt       = R.compose(fmap(parseInt), Maybe);
  */
 var E = require('data.either');
 
+describe('Either Functor', function () {
+
+  describe('eitherGrantAccess', function () {
+    it('returns a welcome message in an Either.Right if user is active', function () {
+      var david = { active: true, name: 'David' };
+      expect(eitherGrantAccess(david)).to.be.deep.equal(E.Right('Welcome David'));
+    });
+
+    it('returns an error message in an Either.Left if user is non-active', function () {
+      var peter = { active: false, name: 'Peter' };
+      expect(eitherGrantAccess(peter)).to.be.deep.equal(E.Left('Your account is not active'));
+    });
+  });
+
+});
+
+var eitherCheckIfUserIsActive = function(user) {
+  return user.active ? E.Right(user) : E.Left('Your account is not active');
+};
+var welcomeUser = R.compose(R.add('Welcome '), R.prop('name'));
+var eitherGrantAccess = R.compose(fmap(welcomeUser), eitherCheckIfUserIsActive);
+
