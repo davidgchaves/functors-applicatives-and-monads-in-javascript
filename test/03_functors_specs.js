@@ -140,3 +140,12 @@ describe('Maybe Functor', function () {
 var maybeNameStartsWith = R.compose(fmap(R.head), Maybe, R.prop('name'));
 var maybeParseInt       = R.compose(fmap(parseInt), Maybe);
 
+
+/*
+ * The Either Functor: A structure for disjunctions (e.g.: computations that may fail)
+ *
+ * Using the Data.Either implementation: https://github.com/folktale/data.either
+ * from the Folktale project: http://folktalejs.org
+ */
+var E = require('data.either');
+
