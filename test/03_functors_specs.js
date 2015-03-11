@@ -56,7 +56,7 @@ var chai = require('chai'),
  * The curried (point-free) fmap implementation we are going to use:
  */
 var fmap = R.curry(function(f,obj) {
-  return obj.fmap(f);
+  return obj.fmap ? obj.fmap(f) : obj.map(f);
 });
 
 
