@@ -173,6 +173,16 @@ describe('Either Functor', function () {
     });
   });
 
+  describe('eitherSaveUser (with side-effects)', function () {
+    it("returns the saved user in an Either.Right", function () {
+      expect(eitherSaveUser('fprules64')).to.be.deep.equal(E.Right('fprules64'));
+    });
+
+    it('returns an error message in an Either.Left to non-active users', function () {
+      expect(eitherSaveUser('123')).to.be.deep.equal(E.Left('Need length greater than 3'));
+    });
+  });
+
 });
 
 var eitherCheckIfUserIsActive = function(user) {
@@ -184,4 +194,7 @@ var eitherGrantAccess = R.compose(fmap(welcomeUser), eitherCheckIfUserIsActive);
 var eitherUserNameIsLargerThan3CharsValidator = function(x) {
   return x.length > 3 ? E.Right(x) : E.Left('Need length greater than 3');
 };
+
+var mockSave = function (x) { console.log('User ' + x + ' saved!'); return x; };
+var eitherSaveUser = R.compose(fmap(mockSave), eitherUserNameIsLargerThan3CharsValidator);
 
