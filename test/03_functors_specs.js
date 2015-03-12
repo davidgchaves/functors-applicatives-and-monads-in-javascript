@@ -275,10 +275,39 @@ describe('IO Functor', function () {
     });
   });
 
+  describe('ioMaybeGetUserEmail', function () {
+    it('returns the user email wrapped in a Maybe Functor', function () {
+      var david = { user: 'David', email: 'david@example.com' };
+      expect(runIO(ioMaybeGetUserEmail(david))).to.be.deep.equal(Maybe('david@example.com'));
+    });
+
+    it('returns Maybe(null) for users with null email', function () {
+      var peter = { user: 'Peter', email: null };
+      expect(runIO(ioMaybeGetUserEmail(peter))).to.be.deep.equal(Maybe(null));
+    });
+  });
+
 });
 
 
 var ioGetHref = function () { return 'http://www.example.com'; }.toIO();
 var getProtocol = R.compose(R.head, R.split('/'));
 var ioGetProtocol = R.compose(fmap(getProtocol), ioGetHref);
+
+
+// Quite interesting:
+//  A Maybe Functor (maybeLocalStorageForUser) inside an IO Functor (ioMaybeGetUserInLocalStorage)
+//  Hence the double fmap (we need to go 2-functor-level-deep)
+
+// The Maybe Functor
+var maybeLocalStorageForUser = function(user) { return Maybe(JSON.stringify(user)) };
+
+// The IO Functor with a Maybe Functor inside
+var ioMaybeGetUserInLocalStorage = function(user) { return maybeLocalStorageForUser(user); }.toIO();
+
+// The function we want to map over
+var getUserEmail = R.compose(R.prop('email'), JSON.parse);
+
+// The double fmap
+var ioMaybeGetUserEmail = R.compose(fmap(fmap(getUserEmail)), ioMaybeGetUserInLocalStorage);
 
