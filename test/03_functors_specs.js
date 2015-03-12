@@ -267,3 +267,18 @@ Function.prototype.toIO = function() {
   };
 };
 
+describe('IO Functor', function () {
+
+  describe('ioGetProtocol', function () {
+    it('returns the Protocol contained in a given web address', function () {
+      expect(runIO(ioGetProtocol(null))).to.be.equal('http:');
+    });
+  });
+
+});
+
+
+var ioGetHref = function () { return 'http://www.example.com'; }.toIO();
+var getProtocol = R.compose(R.head, R.split('/'));
+var ioGetProtocol = R.compose(fmap(getProtocol), ioGetHref);
+
