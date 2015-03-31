@@ -44,25 +44,10 @@ var chai = require('chai'),
 
 var Identity = require('../lib/identity_functor'),
     Maybe    = require('../lib/maybe_functor'),
-    IO       = require('../lib/io_functor');
-
-/*
- * A POINT-FREE FMAP:
- *
- *  Using a regular fmap:
- *    Identity(3).fmap(add(1))
- *
- *  Using our curried 'point-free' fmap:
- *    fmap(add(1), Identity(3))
- *  or explicitly using it's curried nature:
- *    fmap(add(1))(Identity(3))
- *
- * The curried (point-free) fmap implementation we are going to use:
- */
-var fmap = R.curry(function(f,obj) {
-  return obj.fmap ? obj.fmap(f) : obj.map(f);
-});
-
+    IO       = require('../lib/io_functor'),
+    helpers  = require('../lib/functor_helpers'),
+    fmap     = helpers.fmap,
+    runIO    = helpers.runIO;
 
 /*
  * The Identity Functor: A simple wrapper around a value
@@ -184,10 +169,6 @@ var eitherSaveUser = R.compose(fmap(mockSave), eitherUserNameIsLargerThan3CharsV
 /*
  * The IO Functor: Builds a lazy computation (a function) that you can run anytime with runIO()
  */
-
-// Compute now!
-var runIO = function(io) { return io.val.apply(this, [].slice.call(arguments, 1)); };
-
 describe('IO Functor', function () {
 
   describe('ioGetProtocol', function () {
