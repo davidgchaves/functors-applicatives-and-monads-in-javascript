@@ -2,9 +2,21 @@
 
 var R = require('ramda');
 
-var chai = require('chai'),
+var chai   = require('chai'),
     expect = chai.expect;
 
+var lib = require('../lib/02_compose'),
+    lengthsComposed    = lib.lengthsComposed,
+    lengthsPiped       = lib.lengthsPiped,
+    firstTitleComposed = lib.firstTitleComposed,
+    firstTitlePiped    = lib.firstTitlePiped,
+    namesComposed      = lib.namesComposed,
+    namesPiped         = lib.namesPiped,
+    isAuthorComposed   = lib.isAuthorComposed,
+    isAuthorPiped      = lib.isAuthorPiped,
+    isAuthor1          = lib.isAuthor1,
+    isAuthor2          = lib.isAuthor2,
+    avg                = lib.avg;
 
 /*
  * compose :: ((y -> z) -> (x -> y) -> ... -> (b -> c) -> (a -> b)) -> (a -> z)
@@ -29,9 +41,6 @@ describe("Ramda's compose", function () {
   });
 
 });
-
-var length = function(xs) { return xs.length; };
-var lengthsComposed = R.compose(R.map(length), R.split(' '));
 
 
 /*
@@ -58,7 +67,6 @@ describe("Ramda's pipe", function () {
 
 });
 
-var lengthsPiped = R.pipe(R.split(' '), R.map(length));
 
 /*
  * head :: [a] -> a
@@ -179,17 +187,6 @@ describe("Playing with 'articles'", function () {
 
 });
 
-var firstTitleComposed = R.compose(R.prop('title'), R.head);
-var firstTitlePiped    = R.pipe(R.head, R.prop('title'));
-
-var namesComposed      = R.map(R.compose(R.prop('name'), R.prop('author')));
-var namesPiped         = R.map(R.pipe(R.prop('author'), R.prop('name')));
-
-var isAuthorComposed  = function(name, artikles) { return R.compose(R.contains(name), namesComposed)(artikles); };
-var isAuthorPiped     = function(name, artikles) { return R.pipe(namesComposed, R.contains(name))(artikles); };
-var isAuthor1         = function(name, artikles) { return R.contains(name)(namesComposed(artikles)); };
-var isAuthor2         = function(name, artikles) { return R.contains(name, namesComposed(artikles)); };
-
 
 describe('Using a custom fork', function () {
 
@@ -200,20 +197,4 @@ describe('Using a custom fork', function () {
   });
 
 });
-
-var fork = R.curry(function(lastly,f,g,xs) { return lastly(f(xs), g(xs)); } );
-
-/*
- * REMEMBER: var length = function(xs) { return xs.length; };
- *
- * lastly -> R.divide :: Number -> Number -> Number
- * f      -> R.sum    :: [Number] -> Number
- * g      -> length   :: [a] -> Number
- *
- * How does this work? HINT: CURRY!!!!
- *  - length receives the list [1,2,3,4,5] and produces its length (5)
- *  - sum receives the list [1,2,3,4,5] and produces its sum (15)
- *  - divide receives both results (15) and (5) and produces its division (3)
- */
-var avg = fork(R.divide, R.sum, length);
 
