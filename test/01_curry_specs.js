@@ -2,8 +2,15 @@
 
 var R = require('ramda');
 
-var chai = require('chai'),
+var chai   = require('chai'),
     expect = chai.expect;
+
+var lib = require('../lib/01_curry'),
+    words      = lib.words,
+    tripleList = lib.tripleList,
+    max        = lib.max,
+    myMap      = lib.myMap;
+
 
 /*
  * split :: String -> String -> [String]
@@ -23,8 +30,6 @@ describe("Ramda's split", function () {
   });
 
 });
-
-var words = R.split(' ');
 
 
 /*
@@ -61,8 +66,6 @@ describe("Ramda's map", function () {
 
 });
 
-var tripleList = R.map(R.multiply(3));
-
 
 /*
  * reduce :: ((a -> b) -> a) -> a -> [b] -> a
@@ -86,9 +89,6 @@ describe("Ramda's reduce (foldl)", function () {
 
 });
 
-var greater = function (a,b) { return a > b ? a : b; };
-var max = R.reduce(greater, -Infinity);
-
 
 /*
  * curry :: (* -> a) -> (* -> a)
@@ -110,10 +110,5 @@ describe("Ramda's curry", function () {
     });
   });
 
-});
-
-var myMap = R.curry(function(f,xs) {
-  var concatProcessedArgs = function(acc,x) { return acc.concat([f(x)]); };
-  return R.reduce(concatProcessedArgs,[],xs);
 });
 
