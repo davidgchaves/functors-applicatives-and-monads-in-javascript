@@ -23,7 +23,8 @@ var lib = require('../lib/03_functors'),
     eitherUserNameIsLargerThan3CharsValidator = lib.eitherUserNameIsLargerThan3CharsValidator,
     eitherSaveUser                            = lib.eitherSaveUser,
     ioGetProtocol                             = lib.ioGetProtocol,
-    ioMaybeGetUserEmail                       = lib.ioMaybeGetUserEmail;
+    ioMaybeGetUserEmail                       = lib.ioMaybeGetUserEmail,
+    postTitleFuture                           = lib.postTitleFuture;
 
 /*
  * The Identity Functor: A simple wrapper around a value
@@ -141,6 +142,23 @@ describe('IO Functor', function () {
     it('returns Maybe(null) for users with null email', function () {
       var peter = { user: 'Peter', email: null };
       expect(runIO(ioMaybeGetUserEmail(peter))).to.be.deep.equal(Maybe(null));
+    });
+  });
+
+});
+
+
+/*
+ * The Task (AKA Future) Functor: An Either+IO all-in-one functor (or a 'lazy' promise)
+ */
+describe('Task (AKA Future) Functor', function () {
+
+  describe('postTitleFuture', function() {
+    it('returns a Future of the title of the post with a given id', function() {
+      var postId = 3;
+      var err = function(x){ throw err; }
+      postTitleFuture(postId).fork(err,
+                                   function(title) { expect(title).to.be.equal('Love them futures'); });
     });
   });
 
