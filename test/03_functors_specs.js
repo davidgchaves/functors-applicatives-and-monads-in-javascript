@@ -24,7 +24,8 @@ var lib = require('../lib/03_functors'),
     eitherSaveUser                            = lib.eitherSaveUser,
     ioGetProtocol                             = lib.ioGetProtocol,
     ioMaybeGetUserEmail                       = lib.ioMaybeGetUserEmail,
-    postTitleFuture                           = lib.postTitleFuture;
+    postTitleFuture                           = lib.postTitleFuture,
+    renderPostTitleInADivFuture               = lib.renderPostTitleInADivFuture;
 
 /*
  * The Identity Functor: A simple wrapper around a value
@@ -159,6 +160,15 @@ describe('Task (AKA Future) Functor', function () {
       var err = function(x){ throw(err); };
       postTitleFuture(postId).fork(err,
                                    function(title) { expect(title).to.be.equal('Love them futures'); });
+    });
+  });
+
+  describe('renderPostTitleInADivFuture', function() {
+    it('returns a Future of the title of the post wrapped in a <div>', function() {
+      var postId = 3;
+      var err = function(x){ throw(err); };
+      renderPostTitleInADivFuture(postId).fork(err,
+                                               function(div) { expect(div).to.be.equal('<div>Love them futures</div>'); });
     });
   });
 
