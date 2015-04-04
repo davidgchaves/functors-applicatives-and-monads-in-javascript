@@ -156,7 +156,7 @@ describe('Task (AKA Future) Functor', function () {
   describe('postTitleFuture', function() {
     it('returns a Future of the title of the post with a given id', function() {
       var postId = 3;
-      var err = function(x){ throw err; }
+      var err = function(x){ throw(err); };
       postTitleFuture(postId).fork(err,
                                    function(title) { expect(title).to.be.equal('Love them futures'); });
     });
