@@ -1,7 +1,6 @@
 'use strict';
 
-var R      = require('ramda'),
-    Either = require('data.either');
+var Either = require('data.either');
 
 var chai   = require('chai'),
     expect = chai.expect;
@@ -10,7 +9,6 @@ var Identity = require('../lib/identity_functor'),
     Maybe    = require('../lib/maybe_functor'),
     IO       = require('../lib/io_functor'),
     helpers  = require('../lib/functor_helpers'),
-    fmap     = helpers.fmap,
     runIO    = helpers.runIO;
 
 var lib = require('../lib/03_functors'),
@@ -18,7 +16,6 @@ var lib = require('../lib/03_functors'),
     mapHead                                   = lib.mapHead,
     maybeNameStartsWith                       = lib.maybeNameStartsWith,
     maybeParseInt                             = lib.maybeParseInt,
-    eitherCheckIfUserIsActive                 = lib.eitherCheckIfUserIsActive,
     eitherGrantAccess                         = lib.eitherGrantAccess,
     eitherUserNameIsLargerThan3CharsValidator = lib.eitherUserNameIsLargerThan3CharsValidator,
     eitherSaveUser                            = lib.eitherSaveUser,
@@ -55,12 +52,12 @@ describe('Maybe Functor', function () {
 
   describe('maybeNameStartsWith', function () {
     it("gets the user's name initial wrapped in a Maybe Functor", function () {
-      var user = { id: 4, name: 'David', email: 'david@example.com' }
+      var user = { id: 4, name: 'David', email: 'david@example.com' };
       expect(maybeNameStartsWith(user)).to.be.deep.equal(Maybe('D'));
     });
 
     it("returns a Maybe(null) value when the user's name is not present", function () {
-      var user = { id: 5, name: '', email: 'peter@example.com' }
+      var user = { id: 5, name: '', email: 'peter@example.com' };
       expect(maybeNameStartsWith(user)).to.be.deep.equal(Maybe(null));
     });
   });

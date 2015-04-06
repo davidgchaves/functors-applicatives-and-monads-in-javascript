@@ -107,7 +107,7 @@ describe("Ramda's contains", function () {
       expect(R.contains(6)([3,6,9])).to.be.true;
     });
     it('returns false otherwise', function () {
-      expect(R.contains(0)([3,6,9])).to.be.false
+      expect(R.contains(0)([3,6,9])).to.be.false;
     });
   });
 
